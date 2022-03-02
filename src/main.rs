@@ -1,4 +1,11 @@
-use axum::{response::Html, routing::get, Router};
+use axum::{
+    extract::Query,
+    response::Html,
+    routing::get,
+    Router
+};
+use rand::{thread_rng, Rng};
+use serde::Deserialize;
 use std::net::SocketAddr;
 
 #[tokio::main]
@@ -13,6 +20,17 @@ async fn main() {
         .unwrap();
 }
 
-async fn handler() -> Html<&'static str> {
-    Html("<h1>Hello, World!</h1>")
+#[derive(Deserialize)]
+struct RnageParameters {
+    start: usize,
+    end: usize,
+}
+
+async fn handler(Query(range): Query<RnageParameters>) -> Html<String> {
+    if range.start < range.end {
+        let random_number = thread_rng().gen_range(range.start .. range.end);
+        Html(format!("<h1>Random Number: {}</h1>", random_number))
+    } else {
+        Html("<h1>error!</h1>".to_string())
+    }
 }
