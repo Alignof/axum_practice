@@ -39,11 +39,13 @@ impl Component for Model {
         let link = ctx.link();
         html! {
             <>
-                <main>
-                    <div>
-                        <button onclick={link.callback(|_| Msg::AddOne)}>{ "+1" }</button>
-                        <button onclick={link.callback(|_| Msg::MinusOne)}>{ "-1" }</button>
-                        <p>{ self.value }</p>
+                <main class="text-orange-300 font-sans-serif text-center text-2xl">
+                    <div class="m-5">
+                        <button class="bg-white text-blue-800 m-3 rounded py-2 px-4"
+                            onclick={link.callback(|_| Msg::AddOne)}>{ "+1" }</button>
+                        <button class="bg-white text-blue-800 m-3 rounded py-2 px-4"
+                            onclick={link.callback(|_| Msg::MinusOne)}>{ "-1" }</button>
+                        <p class="text-3xl">{ self.value }</p>
                     </div>
                 </main>
 
