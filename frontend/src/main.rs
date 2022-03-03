@@ -44,17 +44,15 @@ impl Component for Model {
 
     fn view(&self, _ctx: &Context<Self>) -> Html {
         html! {
-            <>
+            <BrowserRouter>
                 <Header />
 
                 <main class="text-orange-300 mt-32 font-sans-serif text-center text-2xl">
-                    <BrowserRouter>
                         <Switch<Route> render={Switch::render(switch)} />
-                    </BrowserRouter>
                 </main>
 
                 <Footer />
-            </>
+            </BrowserRouter>
         }
     }
 }
