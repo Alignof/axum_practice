@@ -46,7 +46,7 @@ impl Component for Model {
             <>
                 <Header />
 
-                <main class="text-orange-300 mt-24 font-sans-serif text-center text-2xl">
+                <main class="text-orange-300 mt-32 font-sans-serif text-center text-2xl">
                     <div class="m-5">
                         <button class={btn_sty} onclick={link.callback(|_| Msg::AddOne)}>{ "+1" }</button>
                         <button class={btn_sty} onclick={link.callback(|_| Msg::MinusOne)}>{ "-1" }</button>
