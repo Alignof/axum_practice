@@ -1,57 +1,56 @@
 mod components;
 
-use crate::components::header::Header;
-use crate::components::footer::Footer;
-use yew::prelude::*;
+use crate::components::{
+    header::Header,
+    footer::Footer,
+    home::Home,
+};
 
-enum Msg {
-    AddOne,
-    MinusOne,
+use yew::prelude::*;
+use yew_router::prelude::*;
+
+pub struct Model;
+
+#[derive(Clone, Routable, PartialEq)]
+enum Route {
+    #[at("/")]
+    Home,
+    #[at("/about")]
+    About,
+    #[not_found]
+    #[at("/404")]
+    NotFound,
 }
 
-struct Model {
-    value: i64,
+fn switch(routes: &Route) -> Html {
+    match routes {
+        Route::Home => html!{ <Home /> },
+        Route::About => html!{ <h1>{ "about" }</h1> },
+        Route::NotFound => html!{ <h1>{ "404" }</h1> },
+    }
 }
 
 impl Component for Model {
-    type Message = Msg;
+    type Message = ();
     type Properties = ();
 
     fn create(_ctx: &Context<Self>) -> Self {
-        Self {
-            value: 0,
-        }
+        Self
     }
 
-    fn update(&mut self, _ctx: &Context<Self>, msg: Self::Message) -> bool {
-        match msg {
-            Msg::AddOne => {
-                self.value += 1;
-                true
-            },
-            Msg::MinusOne => {
-                self.value -= 1;
-                true
-            },
-        }
+    fn update(&mut self, _ctx: &Context<Self>, _msg: Self::Message) -> bool {
+        false
     }
 
-    fn view(&self, ctx: &Context<Self>) -> Html {
-        let link = ctx.link();
-
-        // style for tailwind
-        let btn_sty = "bg-white text-blue-800 m-3 rounded py-2 px-4";
-
+    fn view(&self, _ctx: &Context<Self>) -> Html {
         html! {
             <>
                 <Header />
 
                 <main class="text-orange-300 mt-32 font-sans-serif text-center text-2xl">
-                    <div class="m-5">
-                        <button class={btn_sty} onclick={link.callback(|_| Msg::AddOne)}>{ "+1" }</button>
-                        <button class={btn_sty} onclick={link.callback(|_| Msg::MinusOne)}>{ "-1" }</button>
-                        <p class="text-3xl">{ self.value }</p>
-                    </div>
+                    <BrowserRouter>
+                        <Switch<Route> render={Switch::render(switch)} />
+                    </BrowserRouter>
                 </main>
 
                 <Footer />
