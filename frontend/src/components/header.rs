@@ -30,6 +30,7 @@ pub fn header() -> Html {
             <div class="text-2xl ml-auto align-middle">
                 {home_click}
                 {about_click}
+                <a class="m-2" href="https://github.com/Alignof/HCCC_Infra">{ "repo" }</a>
             </div>
         </header>
     }
